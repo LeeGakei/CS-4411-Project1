@@ -404,7 +404,7 @@ ImpressionistUI::ImpressionistUI() {
 	m_nSize = 10;
 
 	// brush dialog definition
-	m_brushDialog = new Fl_Window(400, 325, "Brush Dialog");
+	m_brushDialog = new Fl_Window(410, 325, "Brush Dialog");
 		// Add a brush type choice to the dialog
 		m_BrushTypeChoice = new Fl_Choice(50,10,150,25,"&Brush");
 		m_BrushTypeChoice->user_data((void*)(this));	// record self to be used by static callback functions
@@ -428,6 +428,50 @@ ImpressionistUI::ImpressionistUI() {
 		m_BrushSizeSlider->value(m_nSize);
 		m_BrushSizeSlider->align(FL_ALIGN_RIGHT);
 		m_BrushSizeSlider->callback(cb_sizeSlides);
+
+
+		//to be finished by Jackie Lee
+		{
+			// Add Line Width slider to the dialog 
+			m_BrushSizeSlider = new Fl_Value_Slider(10, 110, 300, 20, "Line Width");
+			m_BrushSizeSlider->user_data((void*)(this));	// record self to be used by static callback functions
+			m_BrushSizeSlider->type(FL_HOR_NICE_SLIDER);
+			m_BrushSizeSlider->labelfont(FL_COURIER);
+			m_BrushSizeSlider->labelsize(12);
+			m_BrushSizeSlider->minimum(1);
+			m_BrushSizeSlider->maximum(40);
+			m_BrushSizeSlider->step(1);
+			m_BrushSizeSlider->value(m_nSize);
+			m_BrushSizeSlider->align(FL_ALIGN_RIGHT);
+			m_BrushSizeSlider->callback(cb_sizeSlides);
+
+			// Add Line Angle slider to the dialog 
+			m_BrushSizeSlider = new Fl_Value_Slider(10, 140, 300, 20, "Line Angle");
+			m_BrushSizeSlider->user_data((void*)(this));	// record self to be used by static callback functions
+			m_BrushSizeSlider->type(FL_HOR_NICE_SLIDER);
+			m_BrushSizeSlider->labelfont(FL_COURIER);
+			m_BrushSizeSlider->labelsize(12);
+			m_BrushSizeSlider->minimum(1);
+			m_BrushSizeSlider->maximum(359);
+			m_BrushSizeSlider->step(1);
+			m_BrushSizeSlider->value(m_nSize);
+			m_BrushSizeSlider->align(FL_ALIGN_RIGHT);
+			m_BrushSizeSlider->callback(cb_sizeSlides);
+
+			// Add Brush Alpha slider to the dialog 
+			m_BrushSizeSlider = new Fl_Value_Slider(10, 170, 300, 20, "Brush Alpha");
+			m_BrushSizeSlider->user_data((void*)(this));	// record self to be used by static callback functions
+			m_BrushSizeSlider->type(FL_HOR_NICE_SLIDER);
+			m_BrushSizeSlider->labelfont(FL_COURIER);
+			m_BrushSizeSlider->labelsize(12);
+			m_BrushSizeSlider->minimum(0);
+			m_BrushSizeSlider->maximum(1);
+			m_BrushSizeSlider->step(0.01);
+			m_BrushSizeSlider->value(0);
+			m_BrushSizeSlider->align(FL_ALIGN_RIGHT);
+			m_BrushSizeSlider->callback(cb_sizeSlides);
+		}
+
 
     m_brushDialog->end();	
 

@@ -61,6 +61,8 @@ public:
 private:
 	char			m_imageName[256];
 
+	//called when brush is chosen, added by Jackie Lee
+	void	changeUiState(int type);	
 };
 
 extern void MessageBox(char *message);
