@@ -46,7 +46,8 @@ public:
 	// The current active brush.
 	ImpBrush*			m_pCurrentBrush;	
 	// Size of the brush.
-	int m_nSize;							
+	int m_nSize;	/*I think this attribute is useless because no function actually get or set this attribute,if some similar 
+	attribute needed to be added, it should be added to impressionistUI.h, added by Jackie Lee*/
 
 	ImpressionistUI*	m_pUI;
 
@@ -62,7 +63,7 @@ private:
 	char			m_imageName[256];
 
 	//called when brush is chosen, added by Jackie Lee
-	void	changeUiState(int type);	
+	void	changeUIState(int type);	
 };
 
 extern void MessageBox(char *message);

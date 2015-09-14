@@ -53,13 +53,21 @@ public:
 	// Interface to get attribute
 
 	int					getSize();
+	int					getLineWidth();
+	int					getLineAngle();
+	double				getAlpha();
 	void				setSize(int size);
+
+	//since setter functions is not used actually so I don't want to implement it~; added by Jackie Lee 
 
 private:
 	ImpressionistDoc*	m_pDoc;		// pointer to document to communicate with the document
 
 	// All attributes here
-	int		m_nSize;
+	int		m_nSize;	//brush size, idk why its prefix is "m_n",
+	int		m_lineWidth;
+	int		m_lineAngle;
+	double	m_nAlpha;	//brush alpha, 
 
 	// Static class members
 	static Fl_Menu_Item		menuitems[];
@@ -78,7 +86,9 @@ private:
 	static void	cb_brushChoice(Fl_Widget* o, void* v);
 	static void	cb_clear_canvas_button(Fl_Widget* o, void* v);
 	static void	cb_sizeSlides(Fl_Widget* o, void* v);
-
+	static void cb_lineWidthSlides(Fl_Widget* o, void* v);
+	static void cb_lineAngleSlides(Fl_Widget* o, void* v);
+	static void cb_alphaSlides(Fl_Widget* o, void* v);
 };
 
 #endif

@@ -33,19 +33,25 @@ void LineBrush::BrushMove(const Point source, const Point target)
 		printf("PointBrush::BrushMove  document is NULL\n");
 		return;
 	}
-	printf("reaching here!\n");
 
-	glBegin(GL_LINES);
+	double x1, y1, x2, y2;
+	double length = pDoc->getSize();
+	double width = pDoc->m_pUI->getLineWidth();
+	double angle = pDoc->m_pUI->getLineAngle();
+	x1 = target.x - length / 2;
+	x2 = target.x + length / 2;
+	y1 = target.y - width / 2;
+	y2 = target.y + width / 2;
+
+	//move the coordinate system origin to the target point, make rotation and reset the origin.
+	glPushMatrix();
+		glTranslatef(target.x, target.y, 0.0);
+		glRotatef(angle, 0, 0, 1);
+		glTranslatef(-target.x, -target.y, 0.0);
 		SetColor(source);
-		double x1, y1, x2, y2;
-		double length = pDoc->getSize();
-		x1 = target.x - length / 2;
-		x2 = target.x + length / 2;
-		y1 = target.y;
-		y2 = target.y;
-		glVertex2d(x1, y1);
-		glVertex2d(x2, y2);
-	glEnd();
+		glRectf(x1, y1, x2, y2);
+		glFlush();
+	glPopMatrix();
 }
 
 void LineBrush::BrushEnd(const Point source, const Point target)

@@ -60,6 +60,7 @@ ImpressionistDoc::ImpressionistDoc()
 void ImpressionistDoc::setUI(ImpressionistUI* ui) 
 {
 	m_pUI	= ui;
+	changeUIState(BRUSH_POINTS);
 }
 
 //---------------------------------------------------------
@@ -77,6 +78,7 @@ char* ImpressionistDoc::getImageName()
 void ImpressionistDoc::setBrushType(int type)
 {
 	m_pCurrentBrush	= ImpBrush::c_pBrushes[type];
+	changeUIState(type);	//the type will be BRUSH_POINTS by default ,added by Jackie Lee
 }
 
 //---------------------------------------------------------
@@ -200,5 +202,27 @@ GLubyte* ImpressionistDoc::GetOriginalPixel( int x, int y )
 GLubyte* ImpressionistDoc::GetOriginalPixel( const Point p )
 {
 	return GetOriginalPixel( p.x, p.y );
+}
+
+//----------------------------------------------------------------
+// enable or disable some parts of UI when a specified type is chosen
+//----------------------------------------------------------------
+void ImpressionistDoc::changeUIState(int type){
+	switch (type){
+	case BRUSH_POINTS:
+	case BRUSH_CIRCLES:
+	case BRUSH_SCATTERED_POINTS:
+	case BRUSH_SCATTERED_CIRCLES:
+		m_pUI->m_LineWidthSlider->deactivate();
+		m_pUI->m_LineAngleSlider->deactivate();
+		break;
+	case BRUSH_LINES:
+	case BRUSH_SCATTERED_LINES:
+		m_pUI->m_LineWidthSlider->activate();
+		m_pUI->m_LineAngleSlider->activate();
+		break;
+	default:
+		printf("error in ImpressionistDoc.ccp changeUIState : Invalid type!");
+	}
 }
 
