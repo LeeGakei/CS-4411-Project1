@@ -54,4 +54,5 @@ void ImpBrush::SetColor (const Point source)
 	glColor4ub(color[0], color[1], color[2], int(pDoc->m_pUI->getAlpha() * 255));
 
 	//test by Jackie Lee
+	//test again ~~~
 }
