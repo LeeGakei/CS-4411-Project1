@@ -50,6 +50,8 @@ void ImpBrush::SetColor (const Point source)
 	memcpy ( color, pDoc->GetOriginalPixel( source ), 3 );
  
 	//glColor3ubv( color );
-	glColor4ub(color[0], color[1], color[2], pDoc->m_pUI->getAlpha() * 255);
+	printf("%d ", int(pDoc->m_pUI->getAlpha() * 255));
+	glColor4ub(color[0], color[1], color[2], int(pDoc->m_pUI->getAlpha() * 255));
 
+	//test by Jackie Lee
 }
