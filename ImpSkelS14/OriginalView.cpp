@@ -28,8 +28,7 @@ void OriginalView::draw()
 {
 	if(!valid())
 	{
-		glClearColor(0.7f, 0.7f, 0.7f, 1.0);
-
+		glClearColor(0.7f, 0.7f, 0.7f, 0.0);
 		// We're only using 2-D, so turn off depth 
 		glDisable( GL_DEPTH_TEST );
 

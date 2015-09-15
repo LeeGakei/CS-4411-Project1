@@ -227,6 +227,7 @@ void PaintView::RestoreContent()
 {
 	glDrawBuffer(GL_BACK);
 
+	glClearColor(0.0f,1.0f,0.0f,1.0f);
 	glClear( GL_COLOR_BUFFER_BIT );
 
 	glRasterPos2i( 0, m_nWindowHeight - m_nDrawHeight );

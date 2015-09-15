@@ -13,6 +13,12 @@
       <UniqueIdentifier>{b89c4043-2e1a-46ad-8c0b-3512354115f9}</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
     </Filter>
+    <Filter Include="Header Files\Brush">
+      <UniqueIdentifier>{60958c85-49b9-4c34-98e0-9bec478770c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Brush">
+      <UniqueIdentifier>{7e71a55c-27b2-4694-8151-32cbc7aa04db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bitmap.cpp">
@@ -37,13 +43,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PointBrush.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Brush</Filter>
     </ClCompile>
     <ClCompile Include="CircleBrush.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Brush</Filter>
     </ClCompile>
     <ClCompile Include="LineBrush.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Brush</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,14 +74,14 @@
     <ClInclude Include="PaintView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PointBrush.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="LineBrush.h">
+      <Filter>Header Files\Brush</Filter>
     </ClInclude>
     <ClInclude Include="CircleBrush.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Brush</Filter>
     </ClInclude>
-    <ClInclude Include="LineBrush.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PointBrush.h">
+      <Filter>Header Files\Brush</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
