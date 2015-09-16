@@ -47,12 +47,6 @@ void CircleBrush::BrushMove(const Point source, const Point target)
 		}
 
 		//reference : http://blog.sina.com.cn/s/blog_858820890100xyop.html
-
-		//glEnable(GL_POINT_SMOOTH);
-		//glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-		//SetColor(source);
-		//glVertex2d(target.x, target.y);
-		//glDisable(GL_POINT_SMOOTH);
 	glEnd();
 }
 

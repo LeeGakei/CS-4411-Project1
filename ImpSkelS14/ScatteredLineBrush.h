@@ -11,6 +11,7 @@ public:
 	void BrushBegin(const Point source, const Point target);
 	void BrushMove(const Point source, const Point target);
 	void BrushEnd(const Point source, const Point target);
+	void DrawLine(const Point source, const Point target, const double length);
 	char* BrushName(void);
 };
 

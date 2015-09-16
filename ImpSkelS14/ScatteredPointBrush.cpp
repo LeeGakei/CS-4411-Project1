@@ -2,8 +2,6 @@
 #include "impressionistUI.h"
 #include "ScatteredPointBrush.h"
 
-#include "PointBrush.h"	//to use the function DrawPoint there
-
 extern float frand();
 
 ScatteredPointBrush::ScatteredPointBrush(ImpressionistDoc* pDoc, char* name) :
@@ -18,7 +16,7 @@ void ScatteredPointBrush::BrushBegin(const Point source, const Point target)
 
 	//int size = pDoc->getSize();
 
-	//glPointSize((float)size);
+	glPointSize(1.0f);
 
 	BrushMove(source, target);
 }
@@ -36,11 +34,11 @@ void ScatteredPointBrush::BrushMove(const Point source, const Point target)
 	int x = source.x;
 	int y = source.y;
 	int size = pDoc->getSize();
-	for (int i = x - size / 2; i < x + size / 2; i++){
-		for (int j = y - size / 2; j < y + size / 2; y++){
+	for (int i = - size / 2; i < size / 2; i++){
+		for (int j = - size / 2; j < size / 2; j++){
 			double random = (double)rand() / RAND_MAX;
-			if (random > 0.5){
-				DrawPoint(source,target);
+			if (random > 0.75){
+				DrawPoint(Point(source.x + i, source.y + j), Point(target.x + i, target.y + j));
 			}
 		}
 	}
