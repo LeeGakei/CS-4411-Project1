@@ -40,14 +40,18 @@ void PointBrush::BrushMove( const Point source, const Point target )
 		return;
 	}
 
-	glBegin(GL_POINTS);
-		SetColor( source );
-		glVertex2d( target.x, target.y );
-	glEnd();
+	DrawPoint(source,target);
 }
 
 void PointBrush::BrushEnd( const Point source, const Point target )
 {
 	// do nothing so far
+}
+
+void PointBrush::DrawPoint(const Point source, const Point target){
+	glBegin(GL_POINTS);
+		SetColor(source);
+		glVertex2d(target.x, target.y);
+	glEnd();
 }
 
