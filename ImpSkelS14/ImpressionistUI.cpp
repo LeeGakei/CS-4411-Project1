@@ -274,33 +274,36 @@ void ImpressionistUI::cb_clear_canvas_button(Fl_Widget* o, void* v)
 
 
 //-----------------------------------------------------------
-// Updates the brush size to use from the value of the size
-// slider
-// Called by the UI when the size slider is moved
+// Updates the brush size, angle, etc to use from the value of
+// the slider
+// Called by the UI when the slider is moved
 //-----------------------------------------------------------
-void ImpressionistUI::cb_sizeSlides(Fl_Widget* o, void* v)
+void ImpressionistUI::cb_sizeSlides(Fl_Widget* o, void* v) //change size
 {
 	((ImpressionistUI*)(o->user_data()))->m_nSize=int( ((Fl_Slider *)o)->value() ) ;
 }
 
-void ImpressionistUI::cb_lineWidthSlides(Fl_Widget* o, void* v)
+void ImpressionistUI::cb_lineWidthSlides(Fl_Widget* o, void* v) //change width (LineBrush)
 {
 	((ImpressionistUI*)(o->user_data()))->m_lineWidth = int(((Fl_Slider *)o)->value());
 	printf("line Width Changing");
 }
 
-void ImpressionistUI::cb_lineAngleSlides(Fl_Widget* o, void* v)
+void ImpressionistUI::cb_lineAngleSlides(Fl_Widget* o, void* v) //change angle (LineBrush)
 {
 	((ImpressionistUI*)(o->user_data()))->m_lineAngle = int(((Fl_Slider *)o)->value());
 	printf("line Angle Changing");
 	printf("%d", ((ImpressionistUI*)(o->user_data()))->m_lineAngle);
 }
 
-void ImpressionistUI::cb_alphaSlides(Fl_Widget* o, void* v)
+void ImpressionistUI::cb_alphaSlides(Fl_Widget* o, void* v) //change alpha, also enables alpha blending ~JT
 {
 	((ImpressionistUI*)(o->user_data()))->m_nAlpha = double(((Fl_Slider *)o)->value());
 	printf("Alpha Changing");
 	
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//printf("%e", double(((Fl_Slider *)o)->value()));
 	//cout << ((ImpressionistUI*)(o->user_data()))->m_nAlpha;
 }
