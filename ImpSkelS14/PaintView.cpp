@@ -9,6 +9,7 @@
 #include "impressionistUI.h"
 #include "paintview.h"
 #include "ImpBrush.h"
+#include "Math.h" //for tangent ~JT
 
 
 #define LEFT_MOUSE_DOWN		1
@@ -17,7 +18,7 @@
 #define RIGHT_MOUSE_DOWN	4
 #define RIGHT_MOUSE_DRAG	5
 #define RIGHT_MOUSE_UP		6
-
+#define radtodeg			57.29577951
 
 #ifndef WIN32
 #define min(a, b)	( ( (a)<(b) ) ? (a) : (b) )
@@ -27,6 +28,7 @@
 static int		eventToDo;
 static int		isAnEvent=0;
 static Point	coord;
+static int initx, inity; //for right click angle setting
 
 PaintView::PaintView(int			x, 
 					 int			y, 
@@ -101,6 +103,7 @@ void PaintView::draw()
 		Point source( coord.x + m_nStartCol, m_nEndRow - coord.y );
 		Point target( coord.x, m_nWindowHeight - coord.y );
 		
+
 		// This is the event handler
 		switch (eventToDo) 
 		{
@@ -117,13 +120,17 @@ void PaintView::draw()
 			RestoreContent();
 			break;
 		case RIGHT_MOUSE_DOWN:
-
+			initx = target.x;
+			inity = target.y;
 			break;
 		case RIGHT_MOUSE_DRAG:
 
 			break;
 		case RIGHT_MOUSE_UP:
-
+			//need to set conditional statement for mode
+			if (target.x == initx) break; //no division by zero error
+			//set angle equal to line from where you right clicked		
+			m_pDoc->m_pUI->setAngle((int) radtodeg*atan(((double)(target.y - inity)) / (target.x - initx)));
 			break;
 
 		default:

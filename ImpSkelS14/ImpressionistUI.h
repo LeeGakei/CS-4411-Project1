@@ -36,7 +36,7 @@ public:
 // for brush dialog
 	Fl_Window*			m_brushDialog;
 	Fl_Choice*			m_BrushTypeChoice;
-
+	Fl_Choice*			m_AngleTypeChoice;
 	Fl_Slider*			m_BrushSizeSlider;
 	Fl_Slider*			m_LineWidthSlider;
 	Fl_Slider*			m_LineAngleSlider;
@@ -58,7 +58,8 @@ public:
 	double				getAlpha();
 	void				setSize(int size);
 
-	//since setter functions is not used actually so I don't want to implement it~; added by Jackie Lee 
+	//necessary setters implemented, JT
+	void				setAngle(int angle);
 
 private:
 	ImpressionistDoc*	m_pDoc;		// pointer to document to communicate with the document
@@ -72,6 +73,7 @@ private:
 	// Static class members
 	static Fl_Menu_Item		menuitems[];
 	static Fl_Menu_Item		brushTypeMenu[NUM_BRUSH_TYPE+1];
+	static Fl_Menu_Item		angleTypeMenu[NUM_ANGLE_TYPE+1];
 
 	static ImpressionistUI*	whoami(Fl_Menu_* o);
 
@@ -84,6 +86,7 @@ private:
 	static void	cb_exit(Fl_Menu_* o, void* v);
 	static void	cb_about(Fl_Menu_* o, void* v);
 	static void	cb_brushChoice(Fl_Widget* o, void* v);
+	static void cb_angleChoice(Fl_Widget* o, void* v);
 	static void	cb_clear_canvas_button(Fl_Widget* o, void* v);
 	static void	cb_sizeSlides(Fl_Widget* o, void* v);
 	static void cb_lineWidthSlides(Fl_Widget* o, void* v);

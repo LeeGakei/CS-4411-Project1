@@ -21,6 +21,15 @@ enum
 	NUM_BRUSH_TYPE // Make sure this stays at the end!
 };
 
+// Parallel for selection of angle method
+enum
+{
+	SLIDER = 0,
+	RIGHTCLICK = 1,
+	MOVE = 2,
+	GRADIENT= 3,
+	NUM_ANGLE_TYPE
+};
 
 class ImpressionistDoc; // Pre-declaring class
 

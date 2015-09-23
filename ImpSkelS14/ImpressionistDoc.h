@@ -25,6 +25,7 @@ public:
 
 	int     clearCanvas();                  // called by the UI to clear the drawing canvas
 	void	setBrushType(int type);			// called by the UI to set the brushType
+	void    setAngleType(int type);			// called by the UI to set the AngleMethod
 	int		getSize();						// get the UI size
 	void	setSize(int size);				// set the UI size
 	char*	getImageName();					// get the current image name
@@ -45,6 +46,8 @@ public:
 
 	// The current active brush.
 	ImpBrush*			m_pCurrentBrush;	
+	// The current angle selection method. Initialized to zero
+	int					m_pAngleChoice =0;
 	// Size of the brush.
 	int m_nSize;	/*I think this attribute is useless because no function actually get or set this attribute,if some similar 
 	attribute needed to be added, it should be added to impressionistUI.h, added by Jackie Lee*/

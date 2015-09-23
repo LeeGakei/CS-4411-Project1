@@ -261,6 +261,18 @@ void ImpressionistUI::cb_brushChoice(Fl_Widget* o, void* v)
 	pDoc->setBrushType(type);
 }
 
+//likewise for angle selection
+void ImpressionistUI::cb_angleChoice(Fl_Widget* o, void* v)
+{
+	ImpressionistUI* pUI = ((ImpressionistUI *)(o->user_data()));
+	ImpressionistDoc* pDoc = pUI->getDocument();
+
+	int type = (int)v;
+
+
+	pDoc->setAngleType(type);
+}
+
 //------------------------------------------------------------
 // Clears the paintview canvas.
 // Called by the UI when the clear canvas button is pushed
@@ -386,6 +398,14 @@ void ImpressionistUI::setSize( int size )
 		m_BrushSizeSlider->value(m_nSize);
 }
 
+//-------------------------------------------------
+// Set angle for LineBrush
+//-------------------------------------------------
+void ImpressionistUI::setAngle(int angle)
+{
+	m_lineAngle = angle;
+}
+
 // Main menu definition
 Fl_Menu_Item ImpressionistUI::menuitems[] = {
 	{ "&File",		0, 0, 0, FL_SUBMENU },
@@ -415,6 +435,14 @@ Fl_Menu_Item ImpressionistUI::brushTypeMenu[NUM_BRUSH_TYPE+1] = {
   {0}
 };
 
+//Angle choice menu definition
+Fl_Menu_Item ImpressionistUI::angleTypeMenu[NUM_ANGLE_TYPE+1] = {
+	{ "Sliders", FL_ALT + 's', (Fl_Callback *)ImpressionistUI::cb_angleChoice, (void *)SLIDER },
+	{ "Right click", FL_ALT + 'r', (Fl_Callback *)ImpressionistUI::cb_angleChoice, (void *)RIGHTCLICK },
+	{ "Brush direction", FL_ALT + 'b', (Fl_Callback *)ImpressionistUI::cb_angleChoice, (void *)MOVE },
+	{ "Gradient", FL_ALT + 'g', (Fl_Callback *)ImpressionistUI::cb_angleChoice, (void *)GRADIENT },
+	{0}
+};
 
 
 //----------------------------------------------------
@@ -465,6 +493,10 @@ ImpressionistUI::ImpressionistUI() {
 		m_ClearCanvasButton->user_data((void*)(this));
 		m_ClearCanvasButton->callback(cb_clear_canvas_button);
 
+		//LineBrush Angle selection button
+		m_AngleTypeChoice = new Fl_Choice(50, 50, 150, 25, "&AngleMethod");
+		m_AngleTypeChoice->user_data((void*)(this));
+		m_AngleTypeChoice->menu(angleTypeMenu);
 
 		// Add brush size slider to the dialog 
 		m_BrushSizeSlider = new Fl_Value_Slider(10, 80, 300, 20, "Size");

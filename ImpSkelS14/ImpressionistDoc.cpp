@@ -85,6 +85,12 @@ void ImpressionistDoc::setBrushType(int type)
 	changeUIState(type);	//the type will be BRUSH_POINTS by default ,added by Jackie Lee
 }
 
+//likewise for angle choice
+void ImpressionistDoc::setAngleType(int type)
+{
+	m_pAngleChoice = type;
+}
+
 //---------------------------------------------------------
 // Returns the size of the brush.
 //---------------------------------------------------------
