@@ -109,9 +109,17 @@ void PaintView::draw()
 		{
 		case LEFT_MOUSE_DOWN:
 			m_pDoc->m_pCurrentBrush->BrushBegin( source, target );
+			initx = target.x;
+			inity = target.y;
 			break;
 		case LEFT_MOUSE_DRAG:
 			m_pDoc->m_pCurrentBrush->BrushMove( source, target );
+			//only in brush direction mode
+			if (m_pDoc->m_pAngleChoice != MOVE) break;
+			//set angle equal to line from previous point
+			m_pDoc->m_pUI->setAngle((int)radtodeg*atan(((double)(target.y - inity)) / (target.x - initx)));
+			initx = target.x;
+			inity = target.y;
 			break;
 		case LEFT_MOUSE_UP:
 			m_pDoc->m_pCurrentBrush->BrushEnd( source, target );
@@ -127,7 +135,9 @@ void PaintView::draw()
 
 			break;
 		case RIGHT_MOUSE_UP:
-			//need to set conditional statement for mode
+			//only in rightclick mode
+			if (m_pDoc->m_pAngleChoice != RIGHTCLICK) break;
+
 			if (target.x == initx) break; //no division by zero error
 			//set angle equal to line from where you right clicked		
 			m_pDoc->m_pUI->setAngle((int) radtodeg*atan(((double)(target.y - inity)) / (target.x - initx)));

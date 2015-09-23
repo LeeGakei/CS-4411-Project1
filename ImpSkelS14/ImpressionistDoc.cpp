@@ -89,6 +89,8 @@ void ImpressionistDoc::setBrushType(int type)
 void ImpressionistDoc::setAngleType(int type)
 {
 	m_pAngleChoice = type;
+	if (type == SLIDER)		m_pUI->m_LineAngleSlider->activate();
+	else					m_pUI->m_LineAngleSlider->deactivate();
 }
 
 //---------------------------------------------------------
@@ -223,13 +225,16 @@ void ImpressionistDoc::changeUIState(int type){
 	case BRUSH_CIRCLES:
 	case BRUSH_SCATTERED_POINTS:
 	case BRUSH_SCATTERED_CIRCLES:
+		m_pUI->m_AngleTypeChoice->deactivate();
 		m_pUI->m_LineWidthSlider->deactivate();
 		m_pUI->m_LineAngleSlider->deactivate();
 		break;
 	case BRUSH_LINES:
 	case BRUSH_SCATTERED_LINES:
+		m_pUI->m_AngleTypeChoice->activate();
 		m_pUI->m_LineWidthSlider->activate();
-		m_pUI->m_LineAngleSlider->activate();
+		if (m_pAngleChoice == SLIDER)		//else it should remain disabled
+			m_pUI->m_LineAngleSlider->activate();
 		break;
 	default:
 		printf("error in ImpressionistDoc.ccp changeUIState : Invalid type!");

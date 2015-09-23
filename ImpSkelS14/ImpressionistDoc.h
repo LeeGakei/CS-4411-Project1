@@ -49,8 +49,7 @@ public:
 	// The current angle selection method. Initialized to zero
 	int					m_pAngleChoice =0;
 	// Size of the brush.
-	int m_nSize;	/*I think this attribute is useless because no function actually get or set this attribute,if some similar 
-	attribute needed to be added, it should be added to impressionistUI.h, added by Jackie Lee*/
+	int m_nSize;	
 
 	ImpressionistUI*	m_pUI;
 

@@ -58,5 +58,3 @@ void LineBrush::BrushEnd(const Point source, const Point target)
 {
 	// do nothing so far
 }
-
-//new comment :P
