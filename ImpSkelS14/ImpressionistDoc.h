@@ -43,6 +43,9 @@ public:
 	unsigned char*	m_ucBitmap;
 	unsigned char*	m_ucPainting;
 
+	// Bitmaps for blurred original image
+	unsigned char*	m_ucGrayBitmap;
+
 
 	// The current active brush.
 	ImpBrush*			m_pCurrentBrush;	
@@ -59,6 +62,8 @@ public:
 	GLubyte* GetOriginalPixel( int x, int y );   
 	// Get the color of the original picture at the specified point	
 	GLubyte* GetOriginalPixel( const Point p );  
+
+	GLubyte GetGrayPixel(int x, int y);
 
 
 private:

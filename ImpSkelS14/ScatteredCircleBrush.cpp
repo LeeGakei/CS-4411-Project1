@@ -34,7 +34,7 @@ void ScatteredCircleBrush::BrushMove(const Point source, const Point target)
 	}
 
 	int number = ceil((double)rand() / RAND_MAX * 4);
-	printf("%d", number);
+	//printf("%d", number);
 
 	int x = source.x;
 	int y = source.y;

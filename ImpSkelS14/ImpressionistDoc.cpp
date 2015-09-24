@@ -32,6 +32,7 @@ ImpressionistDoc::ImpressionistDoc()
 	m_nWidth		= -1;
 	m_ucBitmap		= NULL;
 	m_ucPainting	= NULL;
+	m_ucGrayBitmap = NULL;
 
 
 	// create one instance of each brush
@@ -128,6 +129,7 @@ int ImpressionistDoc::loadImage(char *iname)
 	// release old storage
 	if ( m_ucBitmap ) delete [] m_ucBitmap;
 	if ( m_ucPainting ) delete [] m_ucPainting;
+	if (m_ucGrayBitmap) delete[] m_ucGrayBitmap;
 
 	m_ucBitmap		= data;
 
@@ -148,6 +150,33 @@ int ImpressionistDoc::loadImage(char *iname)
 	m_pUI->m_paintView->resizeWindow(width, height);	
 	m_pUI->m_paintView->refresh();
 
+	//generate the blurred image
+	m_ucGrayBitmap = new unsigned char[m_nPaintWidth * m_nPaintHeight];
+	unsigned char *nonFilteredOne = new unsigned char[m_nPaintWidth * m_nPaintHeight];
+	for (int i = 0; i < m_nPaintWidth; i++){
+		for (int j = 0; j < m_nPaintHeight; j++){
+			GLubyte color[3];
+			memcpy(color, GetOriginalPixel(Point(i, j)), 3);
+			nonFilteredOne[m_nPaintWidth * j + i] = GLubyte(0.299 * color[0] + 0.587 * color[1] + 0.144 * color[2]);
+			m_ucGrayBitmap[m_nPaintWidth * j + i] = GLubyte(0.299 * color[0] + 0.587 * color[1] + 0.144 * color[2]);
+		}
+	}
+
+	//Gaussian filter
+	for (int i = 1; i < m_nPaintWidth - 1; i++){
+		for (int j = 1; j < m_nPaintHeight - 1; j++){
+			m_ucGrayBitmap[m_nPaintWidth * j + i] = GLubyte(1.0 / 16 * nonFilteredOne[m_nPaintWidth * (j - 1) + i - 1] +
+				2.0 / 16 * nonFilteredOne[m_nPaintWidth * (j - 1) + i] + 
+				1.0 / 16 * nonFilteredOne[m_nPaintWidth * (j - 1) + i + 1] + 
+				2.0 / 16 * nonFilteredOne[m_nPaintWidth * (j) + i - 1] + 
+				4.0 / 16 * nonFilteredOne[m_nPaintWidth * (j) + i] + 
+				2.0 / 16 * nonFilteredOne[m_nPaintWidth * (j) + i + 1] + 
+				1.0 / 16 * nonFilteredOne[m_nPaintWidth * (j + 1) + i - 1] + 
+				2.0 / 16 * nonFilteredOne[m_nPaintWidth * (j + 1) + i] + 
+				1.0 / 16 * nonFilteredOne[m_nPaintWidth * (j + 1) + i + 1]);
+
+		}
+	}
 
 	return 1;
 }
@@ -214,6 +243,20 @@ GLubyte* ImpressionistDoc::GetOriginalPixel( int x, int y )
 GLubyte* ImpressionistDoc::GetOriginalPixel( const Point p )
 {
 	return GetOriginalPixel( p.x, p.y );
+}
+
+GLubyte ImpressionistDoc::GetGrayPixel(int x, int y){
+	if (x < 0)
+		x = 0;
+	else if (x >= m_nWidth)
+		x = m_nWidth - 1;
+
+	if (y < 0)
+		y = 0;
+	else if (y >= m_nHeight)
+		y = m_nHeight - 1;
+
+	return *(m_ucGrayBitmap + (y*m_nWidth + x));
 }
 
 //----------------------------------------------------------------

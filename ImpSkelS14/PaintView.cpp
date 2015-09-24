@@ -29,6 +29,7 @@ static int		eventToDo;
 static int		isAnEvent=0;
 static Point	coord;
 static int initx, inity; //for right click angle setting
+static int test = 0;
 
 PaintView::PaintView(int			x, 
 					 int			y, 
@@ -40,6 +41,28 @@ PaintView::PaintView(int			x,
 	m_nWindowWidth	= w;
 	m_nWindowHeight	= h;
 
+}
+
+void PaintView::setStrokeAngleByGradient(Point source){
+	//printf("computing begin!");
+	unsigned char local[3][3];
+	for (int i = 0; i < 3; i++){
+		for (int j = 0; j < 3; j++){
+			local[i][j] = m_pDoc->GetGrayPixel(source.x + i - 1, source.y + j - 1);
+			//printf("%d ", local[i][j]);
+		}
+	}
+
+	//matrix computing
+	unsigned char gx = unsigned char(1 * local[0][0] + (2) * local[0][1] + (1) * local[0][2] +
+									-1 * local[2][0] + (-2) * local[2][1] + (-1) * local[2][2]);
+
+	unsigned char gy = unsigned char(1 * local[0][0] + (2) * local[1][0] + (1) * local[2][0] +
+									-1 * local[0][2] + (-2) * local[1][2] + (-1) * local[2][2]);
+
+	printf("gx:%d gy:%d\t",gx,gy);
+	int angle = (int)atan2f(gy,gx) / M_PI * 180;
+	m_pDoc->m_pUI->setAngle(angle);
 }
 
 
@@ -115,11 +138,16 @@ void PaintView::draw()
 		case LEFT_MOUSE_DRAG:
 			m_pDoc->m_pCurrentBrush->BrushMove( source, target );
 			//only in brush direction mode
-			if (m_pDoc->m_pAngleChoice != MOVE) break;
-			//set angle equal to line from previous point
-			m_pDoc->m_pUI->setAngle((int)radtodeg*atan(((double)(target.y - inity)) / (target.x - initx)));
-			initx = target.x;
-			inity = target.y;
+			if (m_pDoc->m_pAngleChoice == MOVE){
+				//set angle equal to line from previous point
+				m_pDoc->m_pUI->setAngle((int)radtodeg*atan(((double)(target.y - inity)) / (target.x - initx)));
+				initx = target.x;
+				inity = target.y;
+			}
+			else if (m_pDoc->m_pAngleChoice == GRADIENT){
+				setStrokeAngleByGradient(source);
+			}
+
 			break;
 		case LEFT_MOUSE_UP:
 			m_pDoc->m_pCurrentBrush->BrushEnd( source, target );
