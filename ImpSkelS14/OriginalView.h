@@ -30,12 +30,15 @@ public:
 
 	void resizeWindow(int width, int height);
 
+	void showEdge();
+
 	ImpressionistDoc*	m_pDoc;
 
 private:
 	int	m_nWindowWidth, 
 		m_nWindowHeight;
 
+	GLbyte* edgeBit;	//computed in showEdge
 };
 
 #endif

@@ -30,7 +30,6 @@ static int		eventToDo;
 static int		isAnEvent=0;
 static Point	coord;
 static int initx, inity; //for right click angle setting
-static int test = 0;
 
 PaintView::PaintView(int			x, 
 					 int			y, 

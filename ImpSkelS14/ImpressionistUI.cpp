@@ -284,6 +284,14 @@ void ImpressionistUI::cb_clear_canvas_button(Fl_Widget* o, void* v)
 	pDoc->clearCanvas();
 }
 
+//show the edge in the original view
+void ImpressionistUI::cb_draw_edge_button(Fl_Widget* o, void* v)
+{
+	ImpressionistDoc * pDoc = ((ImpressionistUI*)(o->user_data()))->getDocument();
+	pDoc->m_pUI->m_origView->showEdge();
+	//printf("show the edge now!");
+}
+
 
 //-----------------------------------------------------------
 // Updates the brush size, angle, etc to use from the value of
@@ -325,6 +333,12 @@ void ImpressionistUI::cb_auto(Fl_Widget* o, void* v)
 	ImpressionistUI* pUI = ((ImpressionistUI*)(o->user_data()));
 	ImpressionistDoc* pDoc = pUI->getDocument();
 	pDoc->autodraw();
+}
+
+void ImpressionistUI::cb_edgeThresholdSlides(Fl_Widget* o, void* v) //change alpha, also enables alpha blending ~JT
+{
+	((ImpressionistUI*)(o->user_data()))->m_edgeThreshold = int(((Fl_Slider *)o)->value());
+	printf("%d", int(((Fl_Slider *)o)->value()));
 }
 
 //---------------------------------- per instance functions --------------------------------------
@@ -388,6 +402,10 @@ int ImpressionistUI::getLineAngle()
 double ImpressionistUI::getAlpha()
 {
 	return m_nAlpha;
+}
+
+int	ImpressionistUI::getEdgeThreshold(){
+	return m_edgeThreshold;
 }
 
 
@@ -529,8 +547,6 @@ ImpressionistUI::ImpressionistUI() {
 		m_BrushSizeSlider->align(FL_ALIGN_RIGHT);
 		m_BrushSizeSlider->callback(cb_sizeSlides);
 
-
-		//to be finished by Jackie Lee
 		{
 			// Add Line Width slider to the dialog 
 			m_LineWidthSlider = new Fl_Value_Slider(10, 110, 300, 20, "Line Width");
@@ -570,6 +586,24 @@ ImpressionistUI::ImpressionistUI() {
 			m_BrushAlphaSlider->value(m_nAlpha);
 			m_BrushAlphaSlider->align(FL_ALIGN_RIGHT);
 			m_BrushAlphaSlider->callback(cb_alphaSlides);
+
+			// Add Brush edge threshold slider to the dialog 
+			m_BrushAlphaSlider = new Fl_Value_Slider(10, 200, 200, 20, "Edge Threshold");
+			m_BrushAlphaSlider->user_data((void*)(this));	// record self to be used by static callback functions
+			m_BrushAlphaSlider->type(FL_HOR_NICE_SLIDER);
+			m_BrushAlphaSlider->labelfont(FL_COURIER);
+			m_BrushAlphaSlider->labelsize(12);
+			m_BrushAlphaSlider->minimum(0);
+			m_BrushAlphaSlider->maximum(500);
+			m_BrushAlphaSlider->step(1);
+			m_BrushAlphaSlider->value(m_nAlpha);
+			m_BrushAlphaSlider->align(FL_ALIGN_RIGHT);
+			m_BrushAlphaSlider->callback(cb_edgeThresholdSlides);
+
+			//Add Show edge button to the dialog
+			m_ShowEdgeButton = new Fl_Button(320, 200, 70, 20, "Do it");
+			m_ShowEdgeButton->user_data((void*)(this));
+			m_ShowEdgeButton->callback(cb_draw_edge_button);
 		}
 
 		//autodraw button //didn't work

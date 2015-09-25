@@ -41,7 +41,9 @@ public:
 	Fl_Slider*			m_LineWidthSlider;
 	Fl_Slider*			m_LineAngleSlider;
 	Fl_Slider*			m_BrushAlphaSlider;
+	Fl_Slider*			m_EdgeThresholdSlider;
 	Fl_Button*          m_ClearCanvasButton;
+	Fl_Button*          m_ShowEdgeButton;
 
 	// Member functions
 	void				setDocument(ImpressionistDoc* doc);
@@ -56,6 +58,7 @@ public:
 	int					getLineWidth();
 	int					getLineAngle();
 	double				getAlpha();
+	int					getEdgeThreshold();
 	void				setSize(int size);
 
 	//necessary setters implemented, JT
@@ -70,6 +73,7 @@ private:
 	int		m_lineWidth;
 	int		m_lineAngle;
 	double	m_nAlpha;	//brush alpha, 
+	int		m_edgeThreshold;
 
 	// Static class members
 	static Fl_Menu_Item		menuitems[];
@@ -94,6 +98,7 @@ private:
 	static void cb_lineAngleSlides(Fl_Widget* o, void* v);
 	static void cb_alphaSlides(Fl_Widget* o, void* v);
 	static void cb_auto(Fl_Widget* o, void* v);
-};
+	static void cb_edgeThresholdSlides(Fl_Widget* o, void* v);
+	static void	cb_draw_edge_button(Fl_Widget* o, void* v);};
 
 #endif

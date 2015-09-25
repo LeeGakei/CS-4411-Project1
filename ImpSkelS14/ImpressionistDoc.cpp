@@ -102,6 +102,12 @@ int ImpressionistDoc::getSize()
 	return m_pUI->getSize();
 }
 
+int ImpressionistDoc::getEdgeThreshold()
+{
+	return m_pUI->getEdgeThreshold();
+}
+
+
 //---------------------------------------------------------
 // Load the specified image
 // This is called by the UI when the load image button is 
@@ -291,7 +297,22 @@ void ImpressionistDoc::autodraw()
 	m_pUI->m_paintView->RestoreContent();
 }
 
-//----------------------------------------------------------------
+void ImpressionistDoc::GetGradient(Point source, unsigned char &gx, unsigned char &gy){
+	unsigned char local[3][3];
+	for (int i = 0; i < 3; i++){
+		for (int j = 0; j < 3; j++){
+			local[i][j] = GetGrayPixel(source.x + i - 1, source.y + j - 1);
+			//printf("%d ", local[i][j]);
+		}
+	}
+
+	//matrix computing
+	gx = unsigned char(1 * local[0][0] + (2) * local[0][1] + (1) * local[0][2] +
+		(-1) * local[2][0] + (-2) * local[2][1] + (-1) * local[2][2]);
+
+	gy = unsigned char(1 * local[0][0] + (2) * local[1][0] + (1) * local[2][0] +
+		(-1) * local[0][2] + (-2) * local[1][2] + (-1) * local[2][2]);
+}//----------------------------------------------------------------
 // enable or disable some parts of UI when a specified type is chosen
 //----------------------------------------------------------------
 void ImpressionistDoc::changeUIState(int type){

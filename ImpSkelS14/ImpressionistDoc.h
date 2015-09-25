@@ -28,6 +28,7 @@ public:
 	void    setAngleType(int type);			// called by the UI to set the AngleMethod
 	int		getSize();						// get the UI size
 	void	setSize(int size);				// set the UI size
+	int		getEdgeThreshold();				// get the edge threshold
 	char*	getImageName();					// get the current image name
 	
 
@@ -66,6 +67,7 @@ public:
 	GLubyte GetGrayPixel(int x, int y);
 
 	void autodraw();
+	void GetGradient(Point source, unsigned char &gx, unsigned char &gy);
 
 private:
 	char			m_imageName[256];
