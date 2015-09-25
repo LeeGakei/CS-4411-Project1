@@ -65,6 +65,7 @@ public:
 
 	GLubyte GetGrayPixel(int x, int y);
 
+	void autodraw();
 
 private:
 	char			m_imageName[256];

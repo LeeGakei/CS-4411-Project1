@@ -320,7 +320,12 @@ void ImpressionistUI::cb_alphaSlides(Fl_Widget* o, void* v) //change alpha, also
 	//cout << ((ImpressionistUI*)(o->user_data()))->m_nAlpha;
 }
 
-
+void ImpressionistUI::cb_auto(Fl_Widget* o, void* v)
+{
+	ImpressionistUI* pUI = ((ImpressionistUI*)(o->user_data()));
+	ImpressionistDoc* pDoc = pUI->getDocument();
+	pDoc->autodraw();
+}
 
 //---------------------------------- per instance functions --------------------------------------
 
@@ -399,12 +404,25 @@ void ImpressionistUI::setSize( int size )
 }
 
 //-------------------------------------------------
+// Set width for LineBrush
+//-=-----------------------------------------------
+void ImpressionistUI::setWidth(int width)
+{
+	m_lineWidth = width;
+
+	if (width <= 40)
+		m_LineWidthSlider->value(m_lineWidth);
+
+}
+
+//-------------------------------------------------
 // Set angle for LineBrush
 //-------------------------------------------------
 void ImpressionistUI::setAngle(int angle)
 {
 	m_lineAngle = angle;
 }
+
 
 // Main menu definition
 Fl_Menu_Item ImpressionistUI::menuitems[] = {
@@ -554,6 +572,10 @@ ImpressionistUI::ImpressionistUI() {
 			m_BrushAlphaSlider->callback(cb_alphaSlides);
 		}
 
+		//autodraw button //didn't work
+		/*Fl_Button* autodraw = new Fl_Button(330, 220, 50, 20, "Paint Canvas");
+		autodraw->user_data((void*)(this));   // record self to be used by static callback functions
+		autodraw->callback(cb_auto);*/
 
     m_brushDialog->end();	
 

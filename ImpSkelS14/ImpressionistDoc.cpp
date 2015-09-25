@@ -259,6 +259,38 @@ GLubyte ImpressionistDoc::GetGrayPixel(int x, int y){
 	return *(m_ucGrayBitmap + (y*m_nWidth + x));
 }
 
+//-------------------------------------------------
+// Automatically draws the picture
+//-------------------------------------------------
+void ImpressionistDoc::autodraw()
+{
+	
+	int size = m_pUI->getSize();			//lock a central size
+	if (size < 3)	size = 3;
+	int width = m_pUI->getLineWidth(); //likewise
+	if (width < 3) width = 3;
+
+	//get dimensions of picture
+	int sideEdge = m_nPaintWidth;
+	int bottomEdge = m_nPaintHeight;
+
+	for (int i = 0; i < sideEdge; i += 5)
+	{
+		for (int j = 0; j < bottomEdge; j += 5)
+		{
+			Point current(i, j);
+			//slight randomization
+			int factor = (rand() % 5) - 2;
+			m_pUI->setSize(size + factor);		//may be two more or two less
+			m_pUI->setWidth(width + factor);
+			m_pCurrentBrush->BrushBegin(current, current);
+		}
+	}
+	m_pUI->setSize(size); m_pUI->setWidth(width);
+	m_pUI->m_paintView->SaveCurrentContent();
+	m_pUI->m_paintView->RestoreContent();
+}
+
 //----------------------------------------------------------------
 // enable or disable some parts of UI when a specified type is chosen
 //----------------------------------------------------------------

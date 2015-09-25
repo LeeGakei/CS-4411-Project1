@@ -18,6 +18,7 @@
 #define RIGHT_MOUSE_DOWN	4
 #define RIGHT_MOUSE_DRAG	5
 #define RIGHT_MOUSE_UP		6
+#define MOUSE_MOVE			7
 #define radtodeg			57.29577951
 
 #ifndef WIN32
@@ -114,7 +115,6 @@ void PaintView::draw()
 	if ( m_pDoc->m_ucPainting && !isAnEvent) 
 	{
 		RestoreContent();
-
 	}
 
 	if ( m_pDoc->m_ucPainting && isAnEvent) 
@@ -158,6 +158,8 @@ void PaintView::draw()
 		case RIGHT_MOUSE_DOWN:
 			initx = target.x;
 			inity = target.y;
+			if (m_pDoc->m_pAngleChoice == RIGHTCLICK) break; //right mouse button calls autodraw outside RIGHTCLICK mode
+			m_pDoc->autodraw();
 			break;
 		case RIGHT_MOUSE_DRAG:
 
@@ -170,7 +172,13 @@ void PaintView::draw()
 			//set angle equal to line from where you right clicked		
 			m_pDoc->m_pUI->setAngle((int) radtodeg*atan(((double)(target.y - inity)) / (target.x - initx)));
 			break;
-
+		/*case MOUSE_MOVE: //didn't work
+			//show red cursor on original
+			glBegin(GL_POINTS);
+			glColor3f(1.0, 0, 0);
+			glVertex2d(target.x, target.y);
+			glEnd();
+			break;*/
 		default:
 			printf("Unknown event!!\n");		
 			break;

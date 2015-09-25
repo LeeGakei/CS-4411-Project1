@@ -46,7 +46,7 @@ public:
 	// Member functions
 	void				setDocument(ImpressionistDoc* doc);
 	ImpressionistDoc*	getDocument();
-
+	//void			autodraw(); //moved
 	void				show();
 	void				resize_windows(int w, int h);
 
@@ -59,6 +59,7 @@ public:
 	void				setSize(int size);
 
 	//necessary setters implemented, JT
+	void				setWidth(int width);
 	void				setAngle(int angle);
 
 private:
@@ -92,6 +93,7 @@ private:
 	static void cb_lineWidthSlides(Fl_Widget* o, void* v);
 	static void cb_lineAngleSlides(Fl_Widget* o, void* v);
 	static void cb_alphaSlides(Fl_Widget* o, void* v);
+	static void cb_auto(Fl_Widget* o, void* v);
 };
 
 #endif
